@@ -96,3 +96,20 @@ To learn more about React Native, take a look at the following resources:
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
 # AppDogs-Darwoft
+
+
+
+Tareas
+Contruir una app que liste los perros usando la api https://thedogapi.com/ con licencia free.
+* Crear una pantalla ide inicio o home que contenga un listado de todos los perros.
+mostrarlos con un formato de tarjeta donde pueda verse la foto del perro y algunos datos que vengan en el api
+* Crear una pantalla de detalle del perro a la que accedes haciendo click en la tarjeta de la pantalla del home. Este te muestra una imagen del perro. con más informacion detallada del perro.
+* Seguir algunas practicas recomendadas:
+    - respetar una estructura de archivos
+    - usar la librería de navegación react-navigation
+    - crear un archivo para agregar estilos comunes (theme)
+    - crear constantes para agregar la base URL (https://thedogapi.com/)
+    - crar un service que use la base URL y la concatene para armar la llamada al api. Crear un hook que tenga props de loader y error para consumirlos en la screen
+    - crear un componente reutiliza para el loader
+    - crear un componente Text para mostrar los mensajes de error.
+    
