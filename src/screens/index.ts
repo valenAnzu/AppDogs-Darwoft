@@ -1,4 +1,4 @@
 
-export { default as dogsListScreen } from './dogsListScreen';
-export { default as DetailDogs } from './dogsDetailScreen';
+export { default as DogsListScreen } from './DogsListScreen';
+export { default as DogDetailScreen } from './DogDetailScreen';
  

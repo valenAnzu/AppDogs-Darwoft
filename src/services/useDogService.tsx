@@ -1,15 +1,38 @@
-// import axios from 'axios';
+import { useState } from 'react';
+import axios from 'axios';
 
-// const YOUR_API_KEY = "TU_API_KEY_AQUI"; // Reemplaza con tu clave
+import { YOUR_API_KEY, YOUR_API_URL } from '../constants/apis';
+import { Dog } from './Dog';
 
-// axios.get('https://api.thedogapi.com/v1/breeds', {
-//   headers: {
-//     'x-api-key': YOUR_API_KEY
-//   }
-// })
-// .then(response => {
-//   console.log('Perros obtenidos:', response.data);
-// })
-// .catch(error => {
-//   console.error('Error al obtener los perros:', error);
-// });
+
+const useDogService = () => {
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const getDogs = async () => {
+    setIsLoading(true);
+    setErrorMessage('');
+
+    try {
+      const response = await axios.get(YOUR_API_URL + 'breeds', {
+        headers: {
+          'x-api-key': YOUR_API_KEY
+        }
+      });
+      const dogs: Dog[] = response.data;
+      return dogs;
+    } catch (error) {
+      console.error('Error fetching dogs:', error);
+      setErrorMessage('Ocurrió un error inesperado.');
+      throw error;
+    }
+    finally {
+      setIsLoading(false);
+    }
+  }
+
+  return { getDogs, isLoading, errorMessage };
+}
+
+export default useDogService;
