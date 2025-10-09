@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, Image, Pressable, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Image, Pressable, StyleSheet, Dimensions } from 'react-native';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { HomeStackParams } from "./homeStack";
@@ -8,6 +8,8 @@ import { Dog } from "../services/Dog";
 import { homeStyles } from "./homeStyles";
 
 interface Props extends NativeStackScreenProps<HomeStackParams, 'DogsList'>{ };
+
+const screenWidth = Dimensions.get('window').width;
 
 const DogsListScreen: React.FC<Props> = ({ navigation, route }) => {
     const { getDogs } = useDogService();
@@ -24,9 +26,10 @@ const DogsListScreen: React.FC<Props> = ({ navigation, route }) => {
     }, []);
 
     const renderItem = ({ item }: { item: Dog }) => (
-        <Pressable style={{ marginHorizontal: 10 }} onPress={() => navigation.navigate('DogDetail', { dogId: item.id })}>
-            <Image source={{ uri: item.image.url }} style={{ width: 100, height: 100 }} />
-            <Text>{item.name}</Text>
+        <Pressable style={styles.card} onPress={() => navigation.navigate('DogDetail', { dogId: item.id })}>
+            <Image source={{ uri: item.image.url }} style={styles.image} />
+            <Text style={styles.textName}>{item.name}</Text>
+            <Text style={styles.textBredFor}>{item.bred_for}</Text>
         </Pressable>
     )
 
@@ -45,8 +48,42 @@ const DogsListScreen: React.FC<Props> = ({ navigation, route }) => {
     )
 }
 
-const styles = StyleSheet.create({
+const CARD_MARGIN = 10;
+const CARD_WIDTH = (screenWidth / 2) - CARD_MARGIN * 3;
 
+const styles = StyleSheet.create({
+    card: {
+        width: CARD_WIDTH,
+        backgroundColor: '#a1ecff',
+        padding: 10,
+        borderRadius: 10,
+        //alignItems: 'center',
+        marginBottom: 10,
+        marginHorizontal: 10,
+    },
+    image: {
+        width: '100%',
+        height: 100,
+        borderRadius: 10,
+        marginBottom: 8,
+    },
+    cardFooter: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+        alignItems: 'center',
+    },
+    textName: {
+        textAlign: 'left',
+        fontWeight: 'bold',
+        fontSize: 24,
+        marginBottom: 8,
+    },
+    textBredFor: {
+        textAlign: 'left',
+        fontSize: 16,
+        color: '#555',
+    },
 });
 
 export default DogsListScreen;

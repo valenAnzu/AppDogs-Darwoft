@@ -27,10 +27,10 @@ export const HomeStack = () => {
         screenOptions={{
           headerShown: true,
           headerStyle: {
-            backgroundColor: 'blue',
+            backgroundColor: '#86f6ff',
           },
           headerTitleStyle: {
-            color: 'white',
+            color: 'black',
           },
           headerTitleAlign: 'center',
           animation: 'slide_from_right',
