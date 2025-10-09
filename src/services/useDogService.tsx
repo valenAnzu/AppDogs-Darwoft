@@ -32,7 +32,36 @@ const useDogService = () => {
     }
   }
 
-  return { getDogs, isLoading, errorMessage };
+  const getOneDog = async (breedId: number) => {
+    setIsLoading(true);
+    setErrorMessage('');
+
+    try {
+      const response = await axios.get(`${YOUR_API_URL}images/search`, {
+        headers: {
+          'x-api-key': YOUR_API_KEY
+        },
+        params: {
+          breed_id: breedId,
+          limit: 1
+        }
+      });
+      if (response.data.length === 0) {
+        return null; // no hay perro con ese breed_id
+      }
+
+    return response.data[0]; // objeto con url, breeds[], etc.
+    } catch (error) {
+      console.error('Error fetching dogs:', error);
+      setErrorMessage('Ocurrió un error inesperado.');
+      throw error;
+    }
+    finally {
+      setIsLoading(false);
+    }
+  }
+
+  return { getDogs, getOneDog, isLoading, errorMessage };
 }
 
 export default useDogService;
