@@ -16,6 +16,7 @@ export type Dog = {
   name: string;
   reference_image_id: string;
   temperament: string;
+  origin: string;
   weight: {
     imperial: string;
     metric: string;

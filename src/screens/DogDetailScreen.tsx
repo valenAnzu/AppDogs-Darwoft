@@ -56,11 +56,27 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
             )}
             {breedInfo ? (
                 <>
-                    <Text style={{ fontSize: 24, fontWeight: 'bold' }}>{breedInfo.name}</Text>
-                    <Text>Altura: {breedInfo.height.metric} cm</Text>
-                    <Text>Peso: {breedInfo.weight.metric} kg</Text>
-                    <Text>Esperanza de vida: {breedInfo.life_span}</Text>
-                    <Text>Temperamento: {breedInfo.temperament}</Text>
+                    <Text style={homeStyles.textName}>{breedInfo.name}</Text>
+                    <Text style={homeStyles.subtitle}>
+                        Height: <Text style={homeStyles.textInfo}>{breedInfo.height.metric} cm </Text>
+                    </Text>
+                    <Text style={homeStyles.subtitle}>
+                        Weight: <Text style={homeStyles.textInfo}>{breedInfo.weight.metric} kg </Text>
+                    </Text>
+                    <Text style={homeStyles.subtitle}>
+                        Life Span: <Text style={homeStyles.textInfo}>{breedInfo.life_span} </Text>
+                    </Text>
+                    <Text style={homeStyles.subtitle}>
+                        Bred for: <Text style={homeStyles.textInfo}>{breedInfo.bred_for} </Text>
+                    </Text>
+                    <Text style={homeStyles.subtitle}>
+                        Temperament: <Text style={homeStyles.textInfo}>{breedInfo.temperament} </Text>
+                    </Text>
+                    {breedInfo.origin ? (
+                        <Text style={homeStyles.subtitle}>
+                            Origen: <Text style={homeStyles.textInfo}>{breedInfo.origin} </Text>
+                        </Text>
+                    ) : null }
                 </>
             ) : (
                 <Text>Información de la raza no disponible.</Text>

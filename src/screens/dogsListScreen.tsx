@@ -28,8 +28,10 @@ const DogsListScreen: React.FC<Props> = ({ navigation, route }) => {
     const renderItem = ({ item }: { item: Dog }) => (
         <Pressable style={styles.card} onPress={() => navigation.navigate('DogDetail', { dogId: item.id })}>
             <Image source={{ uri: item.image.url }} style={styles.image} />
-            <Text style={styles.textName}>{item.name}</Text>
-            <Text style={styles.textBredFor}>{item.bred_for}</Text>
+            <Text style={homeStyles.textName}>{item.name}</Text>
+            <Text style={homeStyles.subtitle}>
+                Bred for: <Text style={homeStyles.textInfo}>{item.bred_for} </Text>
+            </Text>
         </Pressable>
     )
 
@@ -72,17 +74,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: '100%',
         alignItems: 'center',
-    },
-    textName: {
-        textAlign: 'left',
-        fontWeight: 'bold',
-        fontSize: 24,
-        marginBottom: 8,
-    },
-    textBredFor: {
-        textAlign: 'left',
-        fontSize: 16,
-        color: '#555',
     },
 });
 
