@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, Image, Pressable, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, FlatList, Image, Pressable, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { HomeStackParams } from "./homeStack";
@@ -11,14 +11,12 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogsList'>{ };
 
 const screenWidth = Dimensions.get('window').width;
 
-{ /* TODO: Agrega un loader para indicar la espera en esta pantalla */ }
 const DogsListScreen: React.FC<Props> = ({ navigation, route }) => {
-    const { getDogs } = useDogService();
+    const { getDogs, isLoading } = useDogService();
     const [dogs, setDogs] = useState<Dog[]>([]);
     
     const getAllDogs = async () => {
         const fetchedDogs = await getDogs();
-        // console.log('Fetched dogs:', fetchedDogs);   // TODO: Remover consolas
         setDogs(fetchedDogs);
     }
 
@@ -26,13 +24,23 @@ const DogsListScreen: React.FC<Props> = ({ navigation, route }) => {
         getAllDogs();
     }, []);
 
+    if (isLoading) {
+        return (
+            <View style={homeStyles.loadingStyle}>
+                <ActivityIndicator size="large" color="#0000ff"/>;
+            </View>
+        );
+    }
+
     const renderItem = ({ item }: { item: Dog }) => (
         <Pressable style={styles.card} onPress={() => navigation.navigate('DogDetail', { dogId: item.id })}>
             <Image source={{ uri: item.image.url }} style={styles.image} />
             <Text style={homeStyles.textName}>{item.name}</Text>
-            <Text style={homeStyles.subtitle}>
-                Bred for: <Text style={homeStyles.textInfo}>{item.bred_for} </Text>
-            </Text>
+            {item.bred_for ? (
+                <Text style={homeStyles.subtitle}>
+                    Bred for: <Text style={homeStyles.textInfo}>{item.bred_for} </Text>
+                </Text>
+            ) : null }
         </Pressable>
     )
 
@@ -60,7 +68,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#a1ecff',
         padding: 10,
         borderRadius: 10,
-        //alignItems: 'center', // // TODO: Remover codigo comentado
         marginBottom: 10,
         marginHorizontal: 10,
     },

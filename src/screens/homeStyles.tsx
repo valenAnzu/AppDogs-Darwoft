@@ -10,6 +10,7 @@ export const homeStyles = StyleSheet.create({
       fontWeight: 'bold',
       fontSize: 24,
       marginBottom: 8,
+      color: '#717171'
     },
     subtitle: {
       textAlign: 'left',
@@ -22,6 +23,11 @@ export const homeStyles = StyleSheet.create({
       fontSize: 16,
       fontWeight: 'normal',
       color: '#555',
+    },
+    loadingStyle: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
 
 });

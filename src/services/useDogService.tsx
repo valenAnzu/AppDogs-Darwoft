@@ -43,14 +43,14 @@ const useDogService = () => {
         },
         params: {
           breed_id: breedId,
-          limit: 1
+          limit: 5, //para traer varias imagenes de la misma raza
         }
       });
       if (response.data.length === 0) {
-        return null; // no hay perro con ese breed_id
+        return []; // no hay perro con ese breed_id
       }
 
-    return response.data[0]; // objeto con url, breeds[], etc.
+    return response.data; // objeto con url, breeds[], etc.
     } catch (error) {
       console.error('Error fetching dogs:', error);
       setErrorMessage('Ocurrió un error inesperado.');
