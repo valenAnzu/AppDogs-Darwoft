@@ -113,3 +113,24 @@ mostrarlos con un formato de tarjeta donde pueda verse la foto del perro y algun
     - crear un componente reutiliza para el loader
     - crear un componente Text para mostrar los mensajes de error.
     
+Nuevas Tareas:
+* Agrega en el Listado, un buscador por raza, te dejo sugerencias:
+    - Agregar un icono de lupa en el header, al precionar la lupa se muestre un modal con un input para escribir el nombre de la raza. Para abrir un modal usa el prop 'Modal' de react-native.
+    - usa una imagen de lupa, busca cualquiera en internet y agrega un boton con ella adentro.
+    - Para filtrar utiliza el siguiente código:
+
+            React.useLayoutEffect(() => {
+            navigation.setOptions({
+            // Se reemplaza el título por un componente de filtro
+            headerTitle: () => (
+                <FiltroHeader 
+                valorActual={filtroActual}
+                // Esta es la clave: pasamos el setter del estado al Header
+                onFiltroChange={setFiltroActual} 
+                />
+            ),
+            });
+        }, [navigation, filtroActual]);
+
+        * Este código lo que hace es reempleazar el header por un componente FiltroHeader que tendrías que crear que tengo un callback 'onFilterChange' que cuando se llame, se actualice la variable de estado 'filtroActual' usando 'setFiltroActual'. Dentro de la screen usa un useEffect para escuchar cambios de esta variable y así llamar al api con el valor de este filtro
+    - De manera similar, un icono de borrado, para limpiar el filtro

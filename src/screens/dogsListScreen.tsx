@@ -11,13 +11,14 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogsList'>{ };
 
 const screenWidth = Dimensions.get('window').width;
 
+{ /* TODO: Agrega un loader para indicar la espera en esta pantalla */ }
 const DogsListScreen: React.FC<Props> = ({ navigation, route }) => {
     const { getDogs } = useDogService();
     const [dogs, setDogs] = useState<Dog[]>([]);
     
     const getAllDogs = async () => {
         const fetchedDogs = await getDogs();
-        // console.log('Fetched dogs:', fetchedDogs);
+        // console.log('Fetched dogs:', fetchedDogs);   // TODO: Remover consolas
         setDogs(fetchedDogs);
     }
 
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#a1ecff',
         padding: 10,
         borderRadius: 10,
-        //alignItems: 'center',
+        //alignItems: 'center', // // TODO: Remover codigo comentado
         marginBottom: 10,
         marginHorizontal: 10,
     },

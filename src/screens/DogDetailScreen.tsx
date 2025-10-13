@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, Pressable, Image, ActivityIndicator } from 'react-native';
+import { View, Text, FlatList, Pressable, Image, ActivityIndicator } from 'react-native';   // TODO: Quitar importaciones que no se usan
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { HomeStackParams } from "./homeStack";
@@ -13,7 +13,7 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
         const { dogId } = route.params;
         const { getOneDog, isLoading, errorMessage } = useDogService();
         const [dogImageData, setDogImageData] = useState<any>(null);
-        console.log('dogId', dogId);
+        console.log('dogId', dogId);    // // TODO: Remover consolas
 
     const getDogDetail = async () => {
         try {
@@ -29,6 +29,7 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
         getDogDetail();
     }, [dogId]);
 
+    { /* El loader esta en la cima de la pantalla, centralo al medio */}
     if (isLoading) {
         return <ActivityIndicator size="large" color="#0000ff" />;
     }
@@ -43,6 +44,13 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
 
     const breedInfo: Dog | undefined = dogImageData?.breeds?.[0];
 
+    { /* TODO:
+        - Al recargar esta pantalla, aparecen imagenes diferentes de la misma raza.
+            * Crea un carrusel horizontal para mostrar todas las fotos.
+            * Agrega un estilo de puntos o un boton de flecha para saber que es scrollable
+        - Actualiza el diseño para que la imagen ocupe todo el espacio de la pantalla (sin margenes)
+        - Hay un prop en el componente Image para mostrar un loader mientras se carga la imagen 
+        */}
     return (
         <View style={homeStyles.screenContent}>
             {dogImageData?.url ? (
@@ -53,8 +61,10 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
                 />
             ) : (
                 <Text>Imagen no disponible</Text>
+
             )}
             {breedInfo ? (
+                /* TODO: Separa todo este detalle en una funcion dentro de la screen */
                 <>
                     <Text style={homeStyles.textName}>{breedInfo.name}</Text>
                     <Text style={homeStyles.subtitle}>
