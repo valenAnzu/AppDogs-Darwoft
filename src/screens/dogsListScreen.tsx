@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, Image, Pressable, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
+import { View, Text, FlatList, Image, Pressable, StyleSheet, Dimensions, ActivityIndicator, Modal, TextInput } from 'react-native';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import Icon from "react-native-vector-icons/Ionicons";
 
 import { HomeStackParams } from "./homeStack";
 import useDogService from "../services/useDogService";
 import { Dog } from "../services/Dog";
 import { homeStyles } from "./homeStyles";
+import HeaderFilter from "../components/HeaderFilter";
 
 interface Props extends NativeStackScreenProps<HomeStackParams, 'DogsList'>{ };
 
@@ -14,15 +16,44 @@ const screenWidth = Dimensions.get('window').width;
 const DogsListScreen: React.FC<Props> = ({ navigation, route }) => {
     const { getDogs, isLoading } = useDogService();
     const [dogs, setDogs] = useState<Dog[]>([]);
+    const [ actualFilter, setActualFilter ] = useState("");
+    const [ filteredDogs, setFilteredDogs ] = useState<Dog[]>([]);
+    const [ searchModalVisible, setSearchModalVisible ] = useState(false);
+    const [ searchText, setSearchText ] = useState("");
     
     const getAllDogs = async () => {
         const fetchedDogs = await getDogs();
         setDogs(fetchedDogs);
+        setFilteredDogs(fetchedDogs);
     }
 
     useEffect(() => {
         getAllDogs();
     }, []);
+
+    useEffect(() => {
+        if (actualFilter.trim() === "") {
+            setFilteredDogs(dogs);
+        } else {
+            const filtered = dogs.filter((dog) =>
+                dog.name.toLowerCase().includes(actualFilter.toLowerCase())
+            );
+            setFilteredDogs(filtered);
+        }
+    }, [actualFilter, dogs]);
+
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+        // Se reemplaza el título por un componente de filtro
+        headerTitle: () => (
+            <HeaderFilter 
+                actualValue={actualFilter}
+                // Esta es la clave: pasamos el setter del estado al Header
+                onFilterChange={setActualFilter} 
+            />
+        ),
+        });
+    }, [navigation, actualFilter]);
 
     if (isLoading) {
         return (
@@ -33,7 +64,10 @@ const DogsListScreen: React.FC<Props> = ({ navigation, route }) => {
     }
 
     const renderItem = ({ item }: { item: Dog }) => (
-        <Pressable style={styles.card} onPress={() => navigation.navigate('DogDetail', { dogId: item.id })}>
+        <Pressable
+            style={styles.card}
+            onPress={() => navigation.navigate('DogDetail', { dogId: item.id })}
+        >
             <Image source={{ uri: item.image.url }} style={styles.image} />
             <Text style={homeStyles.textName}>{item.name}</Text>
             {item.bred_for ? (
@@ -48,12 +82,17 @@ const DogsListScreen: React.FC<Props> = ({ navigation, route }) => {
         <View style={homeStyles.screenContent}>
             <FlatList
                 numColumns={2}
-                data={dogs}
+                data={filteredDogs}
                 keyExtractor={(item) => item.id.toString()}
                 ItemSeparatorComponent={() => (
                     <View style={{ height: 10 }} /> // separador vertical de 10px
                 )}
                 renderItem={renderItem}
+                ListEmptyComponent={() => (
+                    <Text style={{ textAlign: "center", marginTop: 20 }}>
+                        No se encontraron razas que coincidan.
+                    </Text>
+                )}
             />
         </View>
     )

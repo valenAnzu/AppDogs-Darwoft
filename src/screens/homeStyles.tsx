@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 
-    { /* TODO: Crea estilos para los nombres de los perros, usa algun color diferente al negro y reutilizalo en ambas apntallas */}
 export const homeStyles = StyleSheet.create({
   screenContent: {
     padding: 10
