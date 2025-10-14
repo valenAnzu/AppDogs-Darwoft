@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { View, TextInput, StyleSheet, Pressable, Animated } from "react-native";
+import { View, TextInput, StyleSheet, Pressable, Animated, Modal, Text } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
 interface Props {
@@ -8,38 +8,74 @@ interface Props {
 }
 
 const HeaderFilter: React.FC<Props> = ({ actualValue, onFilterChange }) => {
-  const [ isSearchVisible, setIsSearchVisible ] = useState(false);
-  const [ isExpanded, setIsExpanded ] = useState(false);
-  const widthAnim = useRef(new Animated.Value(50)).current; //ancho inicial de solo el icono
-
-  const expand = () => {
-    if (!isExpanded) {
-      setIsExpanded(true);
-      setIsSearchVisible(true);
-      Animated.timing(widthAnim, {
-        toValue: 200, // ancho final del buscador
-        duration: 250,
-        useNativeDriver: false,
-      }).start();
-    }
-  };
-
-  const collapse = () => {
-    Animated.timing(widthAnim, {
-      toValue: 50,
-      duration: 250,
-      useNativeDriver: false,
-    }).start(() => {
-      setIsExpanded(false);
-      onFilterChange(""); // limpiamos el texto
-    });
-  };
-
-  const handleClear = () => {
-    onFilterChange("");
-  };
+  const [ modalVisible, setModalVisible ] = useState(false);
 
   return (
+    <>
+      {/* Icono de búsqueda en el header */}
+      <Pressable onPress={() => setModalVisible(true)}>
+        <Icon name="search-outline" size={28} color="black" />
+      </Pressable>
+
+      {/* Modal de búsqueda */}
+      <Modal
+        visible={modalVisible}
+        animationType="fade"
+        transparent
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <TextInput
+              style={styles.input}
+              placeholder="Buscar raza..."
+              value={actualValue}
+              onChangeText={onFilterChange}
+              autoFocus
+            />
+            {actualValue.length > 0 && (
+              <Pressable onPress={() => onFilterChange("")}>
+                <Icon name="backspace-outline" size={24} color="#555" style={{ marginLeft: 8 }} />
+              </Pressable>
+            )}
+            <Pressable onPress={() => setModalVisible(false)} style={{ marginLeft: 10 }}>
+              <Text style={{ color: "#555" }}>Cerrar</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+    </>
+  );
+};
+
+const styles = StyleSheet.create({
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#c4faff',
+    borderRadius: 15,
+    paddingHorizontal: 14,
+    height: 50,
+    width: '90%',
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  input: {
+    flex: 1,
+    fontSize: 17,
+    color: '#333',
+  },
+});
+  {/*return (
     <Animated.View style={[styles.container, {width: widthAnim}]}>
       {!isExpanded ? (
         <Pressable onPress={expand}>
@@ -58,7 +94,7 @@ const HeaderFilter: React.FC<Props> = ({ actualValue, onFilterChange }) => {
         />
       )}
 
-      {isSearchVisible && actualValue.length > 0 && (
+      {isExpanded && actualValue.length > 0 && (
         <Pressable onPress={handleClear}>
           <Icon name="backspace-outline" size={22} color="#555" style={{ marginLeft: 8 }} />
         </Pressable>
@@ -92,5 +128,6 @@ const styles = StyleSheet.create({
     color: '#333',
   },
 });
+*/}
 
 export default HeaderFilter;

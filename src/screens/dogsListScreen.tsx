@@ -17,8 +17,6 @@ const DogsListScreen: React.FC<Props> = ({ navigation, route }) => {
     const [dogs, setDogs] = useState<Dog[]>([]);
     const [ actualFilter, setActualFilter ] = useState("");
     const [ filteredDogs, setFilteredDogs ] = useState<Dog[]>([]);
-    const [ searchModalVisible, setSearchModalVisible ] = useState(false);
-    const [ searchText, setSearchText ] = useState("");
     
     const getAllDogs = async () => {
         const fetchedDogs = await getDogs();
