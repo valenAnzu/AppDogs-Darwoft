@@ -12,7 +12,7 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogsList'>{ };
 
 const screenWidth = Dimensions.get('window').width;
 
-const DogsListScreen: React.FC<Props> = ({ navigation, route }) => {
+const DogsListScreen: React.FC<Props> = ({ navigation }) => {
     const { getDogs, isLoading } = useDogService();
     const [dogs, setDogs] = useState<Dog[]>([]);
     const [ actualFilter, setActualFilter ] = useState("");
@@ -67,7 +67,7 @@ const DogsListScreen: React.FC<Props> = ({ navigation, route }) => {
     if (isLoading) {
         return (
             <View style={homeStyles.loadingStyle}>
-                <ActivityIndicator size="large" color="#0000ff"/>;
+                <ActivityIndicator size="large" color="#0000ff"/>
             </View>
         );
     }

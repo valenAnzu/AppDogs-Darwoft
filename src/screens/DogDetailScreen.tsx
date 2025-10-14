@@ -34,7 +34,7 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
     if (isLoading) {
         return (
             <View style={homeStyles.loadingStyle}>
-                <ActivityIndicator size="large" color="#0000ff"/>;
+                <ActivityIndicator size="large" color="#0000ff"/>
             </View>
         );
     }
@@ -87,10 +87,8 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
         return (
             <View style={styles.imageContainer}>
             {loading && (
-                <View
-                style={styles.spinnerLoader}
-                >
-                <ActivityIndicator size="large" color="#0000ff" />
+                <View style={styles.spinnerLoader}>
+                    <ActivityIndicator size="large" color="#0000ff" />
                 </View>
             )}
 

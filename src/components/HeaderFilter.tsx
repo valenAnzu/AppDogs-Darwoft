@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet, Pressable, Modal, Text } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 interface Props {
   actualValue: string;
@@ -12,9 +12,11 @@ const HeaderFilter: React.FC<Props> = ({ actualValue, onFilterChange }) => {
 
   return (
     <>
-      <Pressable onPress={() => setModalVisible(true)}>
-        <Icon name="search-outline" size={28} color="black" />
-      </Pressable>
+      <View style={{ flexDirection: 'row', justifyContent: 'flex-end', padding: 10 }}>
+        <Pressable onPress={() => setModalVisible(true)}>
+          <Ionicons name="search-outline" size={28} color="black" />
+        </Pressable>
+      </View>
 
       {/* Modal de búsqueda */}
       <Modal
@@ -34,7 +36,7 @@ const HeaderFilter: React.FC<Props> = ({ actualValue, onFilterChange }) => {
             />
             {actualValue.length > 0 && (
               <Pressable onPress={() => onFilterChange("")}>
-                <Icon name="backspace-outline" size={24} color="#555" style={{ marginLeft: 8 }} />
+                <Ionicons name="backspace-outline" size={24} color="#555" style={{ marginLeft: 8 }} />
               </Pressable>
             )}
             <Pressable onPress={() => setModalVisible(false)} style={{ marginLeft: 10 }}>
