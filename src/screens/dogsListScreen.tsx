@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, Image, Pressable, StyleSheet, Dimensions, ActivityIndicator, Modal, TextInput } from 'react-native';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import Icon from "react-native-vector-icons/Ionicons";
 
 import { HomeStackParams } from "./homeStack";
 import useDogService from "../services/useDogService";
@@ -44,14 +43,26 @@ const DogsListScreen: React.FC<Props> = ({ navigation, route }) => {
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
-        // Se reemplaza el título por un componente de filtro
-        headerTitle: () => (
-            <HeaderFilter 
-                actualValue={actualFilter}
-                // Esta es la clave: pasamos el setter del estado al Header
-                onFilterChange={setActualFilter} 
-            />
-        ),
+            // Se reemplaza el título por un componente de filtro
+            headerTitle: () => (
+                <View
+                    style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        width: "100%",
+                    }}
+                >
+                    <Text style={{ fontSize: 30, fontWeight: "600" }}>Dogs List</Text>
+                    <View style={{ flex: 1, marginLeft: 10 }}>
+                        <HeaderFilter 
+                            actualValue={actualFilter}
+                            // Esta es la clave: pasamos el setter del estado al Header
+                            onFilterChange={setActualFilter} 
+                        />
+                    </View>
+                </View>
+            ),
         });
     }, [navigation, actualFilter]);
 
