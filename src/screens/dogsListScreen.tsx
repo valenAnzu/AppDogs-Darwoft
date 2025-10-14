@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, Image, Pressable, StyleSheet, Dimensions, ActivityIndicator, Modal, TextInput } from 'react-native';
+import { View, Text, FlatList, Image, Pressable, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { HomeStackParams } from "./homeStack";
