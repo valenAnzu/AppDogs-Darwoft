@@ -108,17 +108,23 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
                 data={dogImageData}
                 horizontal
                 pagingEnabled
-                snapToAlignment="center"
-                decelerationRate="fast"
+                snapToInterval={width}         // asegura que el scroll "salte" exactamente al ancho de pantalla
+                removeClippedSubviews={false}  // evita que iOS recorte vistas antes de tiempo
+                scrollEnabled={true}           // explícito (a veces evita glitches)
                 showsHorizontalScrollIndicator={false}
-                onScroll={(e) => {
+                renderItem={({ item }) => <ImageItem uri={item.url} />}
+                keyExtractor={(_, index) => index.toString()}
+                onMomentumScrollEnd={(e) => {  // más confiable que onScroll en iOS
                     const index = Math.round(e.nativeEvent.contentOffset.x / width);
                     setActiveIndex(index);
                 }}
-                renderItem={({ item }) => <ImageItem uri={item.url} />}
-                keyExtractor={(_, index) => index.toString()}
+                getItemLayout={(_, index) => ({
+                    length: width,
+                    offset: width * index,
+                    index,
+                })}
                 scrollEventThrottle={16}
-                />
+            />
 
                 <View style={styles.dotsContainer}>
                 {dogImageData.map((_, index) => (
@@ -141,7 +147,7 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
 
 const styles = StyleSheet.create({
     image: {
-        width: '100%',
+        width: width,
         height: '100%',
         resizeMode: "cover"
     },
@@ -155,7 +161,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     imageContainer: {
-        width,
+        width: width,
         height: 350,
         backgroundColor: "#f2f2f2"
     },
