@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet, Pressable, Modal, Text } from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Ionicons from "./icons/Ionicons";
 
 interface Props {
   actualValue: string;
