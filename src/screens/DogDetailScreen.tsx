@@ -23,11 +23,12 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
             setDogImageData(fetchedDog);
         }
         catch (error) {
-            console.error('Error loading dog detail', error);
+            console.error('Error loading dog detail', error);   // TODO: Usar el errorMessage de useDogService
         }   
     };
 
     useEffect(() => {
+        // TODO: validar que 'dogId' no esté null o undefined
         getDogDetail();
     }, [dogId]);
 
@@ -84,6 +85,7 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
     const ImageItem = ({ uri }: { uri: string }) => {
         const [loading, setLoading] = useState(true); //loader de la img
 
+        // TODO: Haz que la imagen ocupe toda la pantalla sin margenes ni paddings
         return (
             <View style={styles.imageContainer}>
             {loading && (
@@ -126,7 +128,10 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
                 scrollEventThrottle={16}
             />
 
-                <View style={styles.dotsContainer}>
+                {/* 
+                    TODO: Poner los estilos dentro de styles
+                */}
+            <View style={styles.dotsContainer}>
                 {dogImageData.map((_, index) => (
                     <View
                     key={index}

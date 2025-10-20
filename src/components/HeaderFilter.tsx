@@ -25,6 +25,7 @@ const HeaderFilter: React.FC<Props> = ({ actualValue, onFilterChange }) => {
         transparent
         onRequestClose={() => setModalVisible(false)}
       >
+        {/* TODO: Crea un nuevo componente para todo el contenido del modal */}
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <TextInput

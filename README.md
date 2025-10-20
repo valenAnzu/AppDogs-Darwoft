@@ -101,7 +101,7 @@ To learn more about React Native, take a look at the following resources:
 
 Tareas
 Contruir una app que liste los perros usando la api https://thedogapi.com/ con licencia free.
-* Crear una pantalla ide inicio o home que contenga un listado de todos los perros.
+* Crear una pantalla de inicio o home que contenga un listado de todos los perros.
 mostrarlos con un formato de tarjeta donde pueda verse la foto del perro y algunos datos que vengan en el api
 * Crear una pantalla de detalle del perro a la que accedes haciendo click en la tarjeta de la pantalla del home. Este te muestra una imagen del perro. con más informacion detallada del perro.
 * Seguir algunas practicas recomendadas:
@@ -134,3 +134,6 @@ Nuevas Tareas:
 
         * Este código lo que hace es reempleazar el header por un componente FiltroHeader que tendrías que crear que tengo un callback 'onFilterChange' que cuando se llame, se actualice la variable de estado 'filtroActual' usando 'setFiltroActual'. Dentro de la screen usa un useEffect para escuchar cambios de esta variable y así llamar al api con el valor de este filtro
     - De manera similar, un icono de borrado, para limpiar el filtro
+
+Última Tarea:
+* Cuando la pantalla del listado de perro esta filtrada y cierras el modal. La pantalla sigue filtrada y tienes que seleccionar nuevamente la lupa para limpiar el filtro. Lo que quiero, es que cuando la pantalla esta filtrada, que en vez de una lupa, te muestre un icono de limpiar filtro, para diferenciar cuando esta filtrada y cuando no.

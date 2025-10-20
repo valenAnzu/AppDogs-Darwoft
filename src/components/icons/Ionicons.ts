@@ -14,4 +14,6 @@ if (Platform.OS === "ios") {
 
 export default IoniconsComponent;
 
-
+// TODO: Mover todo este archivo a una carpeta dentro de src/utils
+// Esto no representa un icono particular, por lo q no podemos ponerlo aca.
+// Es más una herramienta de "utilidad" que permite gestionar los iconos de la librería Ionicons.
