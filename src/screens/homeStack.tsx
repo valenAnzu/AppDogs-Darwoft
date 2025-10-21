@@ -18,8 +18,6 @@ export type HomeStackNavigationProp = CompositeNavigationProp<
 const Stack = createNativeStackNavigator<HomeStackParams>();
 
 export const HomeStack = () => {
-  const navigation = useNavigation<HomeStackNavigationProp>();  // TODO: Remover elementos que no se usan
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'gray' }}>
       <Stack.Navigator
