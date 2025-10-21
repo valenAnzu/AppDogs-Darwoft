@@ -23,7 +23,6 @@ export const RootStack = () => {
         initialRouteName={'HomeStack'}
         screenOptions={{
           headerShown: false,
-        //   contentStyle: { backgroundColor: 'red' },  // TODO: Remover codigo comentado !!
         }}
       >
         <Stack.Screen name="HomeStack" component={HomeStack} />

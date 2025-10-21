@@ -29,11 +29,6 @@ function AppContent() {
 
   return (
     <View style={styles.container}>
-      {/* TODO: Remover código comentado 
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      /> */}
       <RootStack />
     </View>
   );

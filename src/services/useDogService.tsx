@@ -8,7 +8,7 @@ import { Dog } from './Dog';
 const useDogService = () => {
 
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(''); // TODO: Usa esta variable en las screens para mostrar los mensajes de error.
+  const [errorMessage, setErrorMessage] = useState('');
 
   const getDogs = async () => {
     setIsLoading(true);

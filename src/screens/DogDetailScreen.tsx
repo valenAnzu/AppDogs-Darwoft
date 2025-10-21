@@ -7,13 +7,13 @@ import useDogService from "../services/useDogService";
 import { Dog } from "../services/Dog";
 import { homeStyles } from "./homeStyles";
 
-const { width } = Dimensions.get("window");
+const { width} = Dimensions.get("window");
 
 interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
 
     const DogDetailScreen: React.FC<Props> = ({ navigation, route }) => {
         const { dogId } = route.params;
-        const { getOneDog, isLoading } = useDogService();
+        const { getOneDog, isLoading, errorMessage } = useDogService();
         const [dogImageData, setDogImageData] = useState<any[]>([]);
         const [ activeIndex, setActiveIndex ] = useState(0);
 
@@ -23,12 +23,15 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
             setDogImageData(fetchedDog);
         }
         catch (error) {
-            console.error('Error loading dog detail', error);   // TODO: Usar el errorMessage de useDogService
+            console.error('Error loading dog detail', errorMessage);
         }   
     };
 
     useEffect(() => {
-        // TODO: validar que 'dogId' no esté null o undefined
+        if (!dogId) {
+            console.error('No se encontro id del perro. Regresando a la pantalla anterior.', errorMessage);
+            navigation.goBack();
+        }
         getDogDetail();
     }, [dogId]);
 
@@ -85,7 +88,6 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
     const ImageItem = ({ uri }: { uri: string }) => {
         const [loading, setLoading] = useState(true); //loader de la img
 
-        // TODO: Haz que la imagen ocupe toda la pantalla sin margenes ni paddings
         return (
             <View style={styles.imageContainer}>
             {loading && (
@@ -128,20 +130,11 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
                 scrollEventThrottle={16}
             />
 
-                {/* 
-                    TODO: Poner los estilos dentro de styles
-                */}
             <View style={styles.dotsContainer}>
                 {dogImageData.map((_, index) => (
                     <View
                     key={index}
-                    style={{
-                        height: 8,
-                        width: 8,
-                        borderRadius: 4,
-                        marginHorizontal: 4,
-                        backgroundColor: index === activeIndex ? "#333" : "#ccc",
-                    }}
+                    style={[ styles.dotsStyle, { backgroundColor: index === activeIndex ? "#333" : "#ccc" } ]}
                     />
                 ))}
             </View>
@@ -152,7 +145,7 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
 
 const styles = StyleSheet.create({
     image: {
-        width: width,
+        width: '100%',
         height: '100%',
         resizeMode: "cover"
     },
@@ -167,14 +160,20 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         width: width,
-        height: 350,
+        aspectRatio: 1,
         backgroundColor: "#f2f2f2"
     },
     dotsContainer: {
         flexDirection: "row",
         justifyContent: "center",
         marginVertical: 10
-    }
+    },
+    dotsStyle: {
+        height: 8,
+        width: 8,
+        borderRadius: 4,
+        marginHorizontal: 4,
+    },
 });
 
 export default DogDetailScreen;

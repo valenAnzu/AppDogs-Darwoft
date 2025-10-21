@@ -6,7 +6,7 @@ import { HomeStackParams } from "./homeStack";
 import useDogService from "../services/useDogService";
 import { Dog } from "../services/Dog";
 import { homeStyles } from "./homeStyles";
-import HeaderFilter from "../components/HeaderFilter";
+import HeaderTitle from "./../components/HeaderTitle";
 
 interface Props extends NativeStackScreenProps<HomeStackParams, 'DogsList'>{ };
 
@@ -42,25 +42,11 @@ const DogsListScreen: React.FC<Props> = ({ navigation }) => {
     React.useLayoutEffect(() => {
         navigation.setOptions({
             // Se reemplaza el título por un componente de filtro
-            // TODO: Poner todo el código del headerTitle en un componente aparte, incluyendo sus estilos
             headerTitle: () => (
-                <View
-                    style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        width: "100%",
-                    }}
-                >
-                    <Text style={{ fontSize: 30, fontWeight: "600" }}>Dogs List</Text>
-                    <View style={{ flex: 1, marginLeft: 10 }}>
-                        <HeaderFilter 
-                            actualValue={actualFilter}
-                            // Esta es la clave: pasamos el setter del estado al Header
-                            onFilterChange={setActualFilter} 
-                        />
-                    </View>
-                </View>
+                <HeaderTitle
+                    actualFilter={actualFilter}
+                    onFilterChange={setActualFilter}
+                />
             ),
         });
     }, [navigation, actualFilter]);
