@@ -11,11 +11,21 @@ interface Props {
 const HeaderFilter: React.FC<Props> = ({ actualValue, onFilterChange }) => {
   const [ modalVisible, setModalVisible ] = useState(false);
 
+  const handleVisibleIcon = () => {
+    if (actualValue.length > 0) {
+      onFilterChange("");
+    } else {
+      setModalVisible(true);
+    }
+  }
+
+  const showIcon = actualValue.length > 0 ? "close-outline" : "search-outline";
+
   return (
     <>
       <View style={styles.iconContainer}>
-        <Pressable onPress={() => setModalVisible(true)}>
-          <Ionicons name="search-outline" size={28} color="black" />
+        <Pressable onPress={handleVisibleIcon}>
+          <Ionicons name={showIcon} size={28} color="black" />
         </Pressable>
       </View>
 
