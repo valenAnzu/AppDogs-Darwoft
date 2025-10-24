@@ -6,7 +6,7 @@ import { HomeStackParams } from "./homeStack";
 import useDogService from "../services/useDogService";
 import { Dog } from "../services/Dog";
 import { homeStyles } from "./homeStyles";
-import HeaderTitle from "./../components/HeaderTitle";
+import HeaderTitle from "../components/HeaderTitle";
 
 interface Props extends NativeStackScreenProps<HomeStackParams, 'DogsList'>{ };
 
