@@ -23,7 +23,7 @@ const useDogService = () => {
       const dogs: Dog[] = response.data;
       return dogs;
     } catch (error) {
-      console.error('Error fetching dogs:', error);
+      // console.error('Error fetching dogs:', error);
       setErrorMessage('Ocurrió un error inesperado.');
       throw error;
     }
@@ -37,6 +37,7 @@ const useDogService = () => {
     setErrorMessage('');
 
     try {
+            // throw new Error("Simulated error"); // Simular un error para probar el manejo de errores
       const response = await axios.get(`${YOUR_API_URL}images/search`, {
         headers: {
           'x-api-key': YOUR_API_KEY

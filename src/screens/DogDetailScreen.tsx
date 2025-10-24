@@ -107,7 +107,7 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
     };
 
     return (
-        <View style={homeStyles.screenContent}>
+        <View style={{paddingHorizontal: 0}}>
             <FlatList
                 data={dogImageData}
                 horizontal
@@ -129,6 +129,11 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'DogDetail'>{ };
                 })}
                 scrollEventThrottle={16}
             />
+            {errorMessage &&
+                <View>
+                    <Text style={{ color: 'red', textAlign: 'center', marginVertical: 10 }}>{errorMessage}</Text>
+                </View>
+            }
 
             <View style={styles.dotsContainer}>
                 {dogImageData.map((_, index) => (

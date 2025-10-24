@@ -14,7 +14,7 @@ const screenWidth = Dimensions.get('window').width;
 //probando
 
 const DogsListScreen: React.FC<Props> = ({ navigation }) => {
-    const { getDogs, isLoading } = useDogService();
+    const { getDogs, isLoading, errorMessage } = useDogService();
     const [dogs, setDogs] = useState<Dog[]>([]);
     const [ actualFilter, setActualFilter ] = useState("");
     const [ filteredDogs, setFilteredDogs ] = useState<Dog[]>([]);
@@ -76,7 +76,7 @@ const DogsListScreen: React.FC<Props> = ({ navigation }) => {
     )
 
     return (
-        <View style={homeStyles.screenContent}>
+        <View style={[ { paddingVertical: 10, alignItems: 'center' }]}>
             <FlatList
                 numColumns={2}
                 data={filteredDogs}
@@ -91,6 +91,11 @@ const DogsListScreen: React.FC<Props> = ({ navigation }) => {
                     </Text>
                 )}
             />
+            {errorMessage &&
+                <View>
+                    <Text style={{ color: 'red', textAlign: 'center', marginVertical: 10 }}>{errorMessage}</Text>
+                </View>
+            }
         </View>
     )
 }
