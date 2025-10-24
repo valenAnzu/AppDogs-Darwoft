@@ -11,6 +11,7 @@ import HeaderTitle from "../components/HeaderTitle";
 interface Props extends NativeStackScreenProps<HomeStackParams, 'DogsList'>{ };
 
 const screenWidth = Dimensions.get('window').width;
+//probando
 
 const DogsListScreen: React.FC<Props> = ({ navigation }) => {
     const { getDogs, isLoading } = useDogService();
